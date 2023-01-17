@@ -7,37 +7,34 @@ $(function () {
 // Display the current date in the header of the page.
 let now = dayjs();
 let date = now.format("dddd, MMMM D YYYY");
-var dateEl = document.getElementById("currentDay");
-dateEl.innerHTML = date;
+var dateEl = $("#currentDay");
+dateEl.html(date);
 
 //formatted the time from Day.js to get current hour
 var time = now.format("HH");
 //apply past, present, or future class to each time block 
 for (var i = 9; i < 18; i++) {
   var hour = "hour-" + i;
-  var timeEl = document.getElementById(hour);
+  var timeEl = $("#" + hour);
   if (i < time) {
-    timeEl.className = "row time-block past"
+    timeEl.attr("class", "row time-block past");
   }
   else if (i > time) {
-    timeEl.className = "row time-block future"
+    timeEl.attr("class", "row time-block future");
   }
   else {
-    timeEl.className = "row time-block present";
+    timeEl.attr("class", "row time-block present");
   }
 }
 //add event listener for when a button is clicked
-document.addEventListener("click", function (event) {
-  if (event.target.matches("button")) {
-    var button = event.target;
-    var getBlock = button.closest(".row");
-    var getHour = getBlock.getAttribute("id");
-    var index = getHour.split('-')[1];
-    console.log(index);
-    var textId = "text-" + index;
-    var data = document.getElementById(textId).value
-    saveData(data, index);
-  }
+$(document).on("click", "button", function (event) {
+  var button = $(this);
+  var getBlock = button.closest(".row");
+  var getHour = getBlock.attr("id");
+  var index = getHour.split('-')[1];
+  var textId = "text-" + index;
+  var data = $("#" + textId).val();
+  saveData(data, index);
 });
 //saves the data to local storage
 var saveData = function (data, index) {
