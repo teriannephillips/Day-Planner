@@ -6,10 +6,13 @@ $(function () {
 
   // Display the current date in the header of the page.
   let now = dayjs();
-  let date = now.format("dddd, MMMM D YYYY");
+  let todayDate = now.format("dddd, MMMM D YYYY");
   var dateEl = $("#currentDay");
-  dateEl.html(date);
-
+  dateEl.html(todayDate);
+  //get the date for saving purposes
+  let today = now.format();
+  var date = today.split('T')[0];
+  console.log(date);
   //formatted the time from Day.js to get current hour
   var time = now.format("HH");
   //apply past, present, or future class to each time block 
@@ -38,13 +41,11 @@ $(function () {
   });
   //saves the data to local storage using the date so each day starts fresh
   var saveData = function (data, index) {
-    let now = dayjs();
-    let today = now.format();
-    var date = today.split('T')[0];
-    console.log(date);
+    
     var calendarData = JSON.parse(localStorage.getItem(date)) || ["", "", "", "", "", "", "", "", "",];
     calendarData.splice(index - 9, 1, data);
     localStorage.setItem(date, JSON.stringify(calendarData));
+  
   }
   //shows the saved data on the screen even after refresh
   var renderData = function () {
@@ -57,5 +58,6 @@ $(function () {
     }
   }
   renderData();
+
 
 });
