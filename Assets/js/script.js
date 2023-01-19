@@ -12,7 +12,6 @@ $(function () {
   //get the date for saving purposes
   let today = now.format();
   var date = today.split('T')[0];
-  console.log(date);
   //formatted the time from Day.js to get current hour
   var time = now.format("HH");
   //apply past, present, or future class to each time block 
@@ -57,7 +56,6 @@ $(function () {
       dataEl.value = storedData[i];
     }
   }
+  //runs the function to show the data on the screen
   renderData();
-
-
 });
